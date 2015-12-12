@@ -1,0 +1,4 @@
+pybrain==0.3
+numpy==1.10.1
+matplotlib==1.4.3
+scipy==0.15.1

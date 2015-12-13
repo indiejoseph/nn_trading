@@ -6,13 +6,13 @@ __version__  = '0.1'
 import os
 import pickle
 from tabulate import tabulate
-from scipy import random
 from data_prepare import YahooHistorical
 from datetime import date, datetime
 import numpy as np
 from itertools import cycle
 from sys import stdout
 import matplotlib.pyplot as plt
+from scipy import random
 from scipy.signal import argrelextrema
 from pybrain.supervised import RPropMinusTrainer, BackpropTrainer
 from pybrain.datasets import SequentialDataSet

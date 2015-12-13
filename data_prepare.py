@@ -1,5 +1,5 @@
-__author__   = 'Joseph Cheng <indiejoseph@gmail.com>'
-__version__  = '0.1'
+__author__ = 'Joseph Cheng <indiejoseph@gmail.com>'
+__version__ = '0.1'
 
 try:
   from urllib.parse import urlencode
@@ -15,9 +15,9 @@ from datetime import date, datetime
 import matplotlib.pyplot as plt
 
 # Yahoo Historical
-YAHOO_HISTORICAL_URL = 'http://real-chart.finance.yahoo.com/table.csv'
+YAHOO_HISTORICAL_URL = 'http://ichart.yahoo.com/table.csv'
 
-class YahooHistorical:
+class YahooHistorical(object):
   def __init__(self, data_from=None, data_to=None):
     self.data_from = data_from
     self.data_to = data_to
@@ -27,7 +27,6 @@ class YahooHistorical:
       csv = f.read()
 
     return self._parse(csv)
-
 
   def download(self, symbol):
     dest_file = symbol + '.csv'
@@ -48,7 +47,6 @@ class YahooHistorical:
     fx.close()
 
     return self._parse(response)
-
 
   def get(self):
     return self.data
@@ -98,7 +96,6 @@ class YahooHistorical:
       rsi[i] = 100. - 100./(1. + rs)
 
     return rsi
-
 
   def moving_average(self, n, type='simple'):
     """
@@ -156,7 +153,6 @@ class YahooHistorical:
 
     return self.data
 
-
 if __name__ == '__main__':
   # get historica csv file from last month
   s = '^HSI'
@@ -164,15 +160,15 @@ if __name__ == '__main__':
   dest_file = os.path.join(os.path.dirname(__file__), 'data', dest_file)
   t = date(2015, 12, 9)
   f = date(2015, 1, 4)
-  h = YahooHistorical()
+  h = YahooHistorical(f, t)
 
-  # h.download(s)
-  h.open(dest_file)
-  y = h.get(f, t)
+  h.download(s)
+  # h.open(dest_file)
+  y = h.get()
   x = [row['date'] for row in y]
   sma20 = h.moving_average(20, type='simple') # 20 day moving average
   sma200 = h.moving_average(200, type='simple') # 200 day moving average
-  rsi = h.relative_strength(f, t)
+  rsi = h.relative_strength()
 
   plt.rc('axes', grid=True)
   plt.rc('grid', color='0.75', linestyle='-', linewidth=0.5)

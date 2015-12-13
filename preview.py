@@ -37,7 +37,7 @@ label = np.array([n['date'] for n in test_set])
 (rsi, m, s) = normalize(rsi)
 emax = list(argrelextrema(prices, np.greater)[0])
 emin = list(argrelextrema(prices, np.less)[0])
-
+print(prices)
 plt.grid(True)
 plt.plot(label, prices, color="blue", label=symbol)
 plt.fill_between(label, prices, np.min(prices), color="blue", alpha=.15)

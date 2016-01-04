@@ -7,6 +7,7 @@ import os
 from data_prepare import YahooHistorical
 import numpy as np
 from scipy import random
+import talib
 from datetime import date, datetime
 import matplotlib.pyplot as plt
 from scipy.signal import argrelextrema

@@ -19,10 +19,7 @@ from pybrain.tools.validation import testOnSequenceData
 # prepare date
 yahoo_data = YahooHistorical()
 yahoo_data.open(os.path.join(os.path.dirname(__file__), 'data/^HSI.csv'))
-training_set = yahoo_data.get(date(2011, 1, 1), date(2013, 12, 31))
-test_set = yahoo_data.get(date(2014, 1, 1), date(2015, 12, 31))
-sma20 = yahoo_data.moving_average(20, type='simple') # 20 days moving average
-test_label = []
+dataset = yahoo_data.get()
 
 # build network
 net = buildNetwork(5, 25, 2, hiddenclass=LSTMLayer, outclass=SigmoidLayer, outputbias=False, recurrent=True)

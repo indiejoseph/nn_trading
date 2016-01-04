@@ -23,10 +23,12 @@ def normalize(data, mean=None, std=None):
 symbol = '^HSI'
 yahoo_data = YahooHistorical(data_from=date(2014, 1, 1), data_to=date(2015, 12, 31))
 yahoo_data.open(os.path.join(os.path.dirname(__file__), 'data/' + symbol + '.csv'))
-test_set = yahoo_data.get()
+training_set = yahoo_data.get()
+test_set = training_set[200:]
 rsi = yahoo_data.relative_strength(n=14)
 (sma13, sma7, macd) = yahoo_data.moving_average_convergence(7, 13) # 7 days and 13 days moving average
 label = np.array([n['date'] for n in test_set])
+(training_prices, m, s) = normalize(np.array([n['adj_close'] for n in training_set]))
 (prices, m, s) = normalize(np.array([n['adj_close'] for n in test_set]))
 (tmax, tmin) = yahoo_data.trading_range_breakout(50)
 (sma13, m, s) = normalize(sma13, m, s)
@@ -37,7 +39,7 @@ label = np.array([n['date'] for n in test_set])
 (rsi, m, s) = normalize(rsi)
 emax = list(argrelextrema(prices, np.greater)[0])
 emin = list(argrelextrema(prices, np.less)[0])
-print(prices)
+
 plt.grid(True)
 plt.plot(label, prices, color="blue", label=symbol)
 plt.fill_between(label, prices, np.min(prices), color="blue", alpha=.15)

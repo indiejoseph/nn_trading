@@ -25,14 +25,6 @@ from pybrain.tools.xml.networkreader import NetworkReader
 
 random.seed(42)
 
-def normalize(data, mean=None, std=None):
-  if mean == None:
-    mean = np.mean(data)
-  if std == None:
-    std = np.std(data)
-  x = (data - mean) / std
-  return x, mean, std
-
 def ir(p, i, data): # p-days, i=current day
   a = np.sum([n['adj_close'] for n in data[i:i+p]]) / p
   c = data[i]['adj_close']
